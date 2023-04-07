@@ -16,6 +16,8 @@
 class Solution {
     
     public TreeNode buildSubtree(int start, int end, int[] nums){     
+        if(end < start)
+            return null;
         int max = -1;
         int maxIndex = -1;
         for(int i=start; i<=end; ++i){
@@ -25,10 +27,8 @@ class Solution {
             }
         }
         TreeNode root = new TreeNode(max);
-        if(start != maxIndex)
-            root.left = buildSubtree(start, maxIndex-1, nums);
-        if(end != maxIndex)
-            root.right = buildSubtree(maxIndex+1, end, nums);
+        root.left = buildSubtree(start, maxIndex-1, nums);
+        root.right = buildSubtree(maxIndex+1, end, nums);
         return root;
     }
     
