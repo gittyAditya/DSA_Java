@@ -10,38 +10,20 @@
  */
 class Solution {
     public ListNode mergeNodes(ListNode head) {
-        ListNode back_node = head;
-        ListNode front_node = head.next;
+        ListNode node = head.next;
+        ListNode new_head = new ListNode();
+        ListNode temp = new_head;
         int sum = 0;
-        while(front_node != null){
-            sum += front_node.val;
-            front_node.val = 0;
-            front_node = front_node.next;
-            back_node = back_node.next;
-            if(front_node.val == 0){
-                back_node.val = sum;
+        while(node != null){
+            sum += node.val;
+            node = node.next;
+            if(node != null && node.val == 0){
+                ListNode new_node = new ListNode(sum);
                 sum = 0;
-                front_node = front_node.next;
-                back_node = back_node.next;
+                temp.next = new_node;
+                temp = temp.next;
             }
         }
-        // while(head != null){
-        //     System.out.println(head.val);
-        //     head = head.next;
-        // }
-        while(head.val == 0)
-            head = head.next;
-        // System.out.println(head.val);
-        back_node = head;
-        front_node = head.next;
-        while(front_node.next != null){
-            while(front_node.val == 0)
-                front_node = front_node.next;
-            back_node.next = front_node;
-            front_node = front_node.next;
-            back_node = back_node.next;
-        }
-        back_node.next = null;
-        return head;
+        return new_head.next;
     }
 }
