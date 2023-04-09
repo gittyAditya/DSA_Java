@@ -19,19 +19,15 @@ class Node {
 */
 
 class Solution {
-    Node[] visited;
-    public Node DFS(Node node){
+    Node[] visited = new Node[101];
+    public Node cloneGraph(Node node) {
+        if(node == null) 
+            return null;
         if(visited[node.val] != null) 
             return visited[node.val];
         visited[node.val] = new Node(node.val);
         for(Node n: node.neighbors) 
-            visited[node.val].neighbors.add(DFS(n));
+            visited[node.val].neighbors.add(cloneGraph(n));
         return visited[node.val];
     }
-    public Node cloneGraph(Node node) {
-        if(node == null) 
-            return null;
-        visited = new Node[101];
-        return DFS(node);
-    }
-}  
+}
